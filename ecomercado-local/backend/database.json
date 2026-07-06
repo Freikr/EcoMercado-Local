@@ -1,0 +1,42 @@
+{
+  "profile": {
+    "name": "Sahid Hernandez",
+    "location": "San Cristóbal",
+    "avatarUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150"
+  },
+  "products": [
+    {
+      "id": "1783363570809",
+      "name": "Leche Vegetal",
+      "description": "Leche de origen vegetal",
+      "price": 125,
+      "unit": "L",
+      "producer": "Harex",
+      "imageUrl": "https://images.unsplash.com/photo-1610348725531-843dff14692a?w=400",
+      "category": "Lácteos",
+      "active": true
+    },
+    {
+      "id": "1783363621263",
+      "name": "Legumbres",
+      "description": "Legumbres genericas",
+      "price": 200,
+      "unit": "Kg",
+      "producer": "Harex",
+      "imageUrl": "https://images.unsplash.com/photo-1610348725531-843dff14692a?w=400",
+      "category": "Vegetales",
+      "active": true
+    },
+    {
+      "id": "1783363680903",
+      "name": "Queso",
+      "description": "Queso regular",
+      "price": 70,
+      "unit": "lb",
+      "producer": "Harex",
+      "imageUrl": "https://images.unsplash.com/photo-1610348725531-843dff14692a?w=400",
+      "category": "Lácteos",
+      "active": true
+    }
+  ]
+}

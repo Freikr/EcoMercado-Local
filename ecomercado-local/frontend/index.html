@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoMercado Local</title>
+    <!-- Tailwind CSS para renderizado inmediato y portátil -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f8fafc] min-h-screen text-slate-800 font-sans">
+
+    <!-- ==================== VISTA CONSUMIDOR ==================== -->
+    <div id="vista-consumidor" class="block pb-16">
+        <!-- Header con Carrito y Ajustes de Perfil -->
+        <header class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center bg-white border-b border-slate-100 shadow-sm rounded-b-xl">
+            <h1 class="text-2xl font-black text-[#0f172a] tracking-tight">EcoMercado Local</h1>
+            <div class="flex items-center gap-4">
+                <!-- Contador Dinámico del Carrito -->
+                <div class="relative bg-slate-100 px-3 py-1.5 rounded-xl text-sm font-bold flex items-center gap-1.5 select-none">
+                    🛒 <span id="cart-counter" class="text-[#2d7a54] transition-all duration-200">0</span>
+                </div>
+                <!-- Botón de Configuración de Perfil -->
+                <button id="btn-abrir-perfil" class="text-xs bg-slate-100 text-slate-600 font-bold px-3 py-2 rounded-xl border border-slate-200 hover:text-emerald-600 transition">
+                    ⚙️ Perfil
+                </button>
+            </div>
+        </header>
+
+        <!-- Buscador en tiempo real -->
+        <div class="max-w-7xl mx-auto px-6 mt-6">
+            <div class="relative w-full">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">🔍</span>
+                <input type="text" id="input-buscar" placeholder="Buscar productos..." class="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+            </div>
+        </div>
+
+        <!-- Filtros de Categorías y Cercanía -->
+        <div class="max-w-7xl mx-auto px-6 mt-5 flex gap-3 text-sm overflow-x-auto">
+            <button id="cat-Vegetales" class="btn-categoria bg-[#2d7a54] text-white px-5 py-2 rounded-xl font-medium shadow-sm shadow-emerald-900/20">Vegetales</button>
+            <button id="cat-Frutas" class="btn-categoria bg-white border border-slate-200 text-slate-600 px-5 py-2 rounded-xl font-medium hover:bg-slate-50 transition">Frutas</button>
+            <button id="cat-Lácteos" class="btn-categoria bg-white border border-slate-200 text-slate-600 px-5 py-2 rounded-xl font-medium hover:bg-slate-50 transition">Lácteos</button>
+            <button id="btn-cerca-mi" class="bg-white border border-slate-200 text-slate-600 px-5 py-2 rounded-xl font-medium hover:bg-slate-50 transition flex items-center gap-1">📍 Cerca de mí</button>
+        </div>
+
+        <!-- Productores Destacados -->
+        <section class="max-w-7xl mx-auto px-6 mt-8">
+            <h2 class="text-lg font-bold text-[#0f172a] mb-4">Productores Destacados</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Tarjeta Finca Verde -->
+                <div class="bg-white border border-slate-100 p-5 rounded-2xl shadow-sm flex flex-col items-center text-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=150" alt="Finca Verde" class="w-20 h-20 rounded-full object-cover border-2 border-slate-100 mb-3 bg-slate-100">
+                    <h3 class="font-bold text-slate-900">Finca Verde</h3>
+                    <p class="text-xs text-slate-400 mt-1">25+ productos</p>
+                </div>
+                <!-- Tarjeta Huerto del Sol -->
+                <div class="bg-white border border-slate-100 p-5 rounded-2xl shadow-sm flex flex-col items-center text-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=150" alt="Huerto del Sol" class="w-20 h-20 rounded-full object-cover border-2 border-slate-100 mb-3 bg-slate-100">
+                    <h3 class="font-bold text-slate-900">Huerto del Sol</h3>
+                    <p class="text-xs text-slate-400 mt-1">18+ productos</p>
+                </div>
+                <!-- Tarjeta Granja Orgánica -->
+                <div class="bg-white border border-slate-100 p-5 rounded-2xl shadow-sm flex flex-col items-center text-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?w=150" alt="Granja Orgánica" class="w-20 h-20 rounded-full object-cover border-2 border-slate-100 mb-3 bg-slate-100">
+                    <h3 class="font-bold text-slate-900">Granja Orgánica</h3>
+                    <p class="text-xs text-slate-400 mt-1">30+ productos</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Catálogo de Productos Disponibles -->
+        <section class="max-w-7xl mx-auto px-6 mt-10">
+            <h2 class="text-lg font-bold text-[#0f172a] mb-5">Productos Frescos</h2>
+            <div id="grid-productos-frescos" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Inyección automática desde Render.js -->
+            </div>
+        </section>
+
+        <!-- Botón Flotante de Intercambio de Rol -->
+        <button id="btn-ir-productor" class="fixed bottom-6 right-6 bg-white border border-slate-200 text-slate-800 font-semibold px-5 py-3 rounded-xl shadow-lg hover:bg-slate-50 transition text-sm z-40">
+            Vista Productor →
+        </button>
+    </div>
+
+
+    <!-- ==================== VISTA PRODUCTOR ==================== -->
+    <div id="vista-productor" class="hidden pb-20">
+        <!-- Banner Dinámico del Perfil Comercial -->
+        <div class="bg-[#1e4620] text-white px-8 py-6 shadow-sm">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <img id="profile-banner-avatar" src="" alt="Avatar" class="w-14 h-14 rounded-full object-cover border-2 border-emerald-500 bg-slate-100">
+                    <div>
+                        <h2 id="profile-banner-name" class="text-xl font-bold">Cargando Perfil...</h2>
+                        <p id="profile-banner-location" class="text-xs text-emerald-200 flex items-center gap-1">📍 Cargando...</p>
+                    </div>
+                </div>
+                <!-- Selector Cosmético de Idioma (ES / EN) -->
+                <div class="flex items-center gap-2 text-xs font-semibold bg-emerald-950/40 p-1.5 rounded-lg border border-emerald-800 select-none">
+                    <span id="lang-es" class="cursor-pointer bg-white/10 text-emerald-400 px-2 py-0.5 rounded transition">ES</span>
+                    <span id="lang-en" class="cursor-pointer text-emerald-200/60 px-2 py-0.5 transition hover:text-white">EN</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Módulos de KPI Dashboard -->
+        <section class="max-w-7xl mx-auto px-6 mt-8">
+            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Panel de Control</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Bloque de Ventas -->
+                <div class="bg-white border border-slate-100 p-6 rounded-2xl shadow-sm flex flex-col justify-between min-h-[140px]">
+                    <span class="text-slate-400 text-sm font-medium">📈 Ventas Totales</span>
+                    <div>
+                        <div class="text-2xl font-black text-slate-900 mt-2">RD$ 24,580</div>
+                        <div class="text-xs font-bold text-emerald-600 mt-1 bg-emerald-50 inline-block px-2 py-0.5 rounded-full">+12% <span class="font-normal text-slate-400">este mes</span></div>
+                    </div>
+                </div>
+                <!-- Bloque de Pedidos -->
+                <div class="bg-[#1a3d29] text-white p-6 rounded-2xl shadow-sm flex flex-col justify-between min-h-[140px]">
+                    <span class="text-emerald-300 text-sm font-medium">🛍️ Pedidos Activos</span>
+                    <div>
+                        <div class="text-3xl font-black mt-2">18</div>
+                        <div class="text-xs font-bold text-emerald-300 mt-1 bg-white/10 inline-block px-2 py-0.5 rounded-full">+3 hoy</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gestión de Inventario Local -->
+        <section class="max-w-7xl mx-auto px-6 mt-10">
+            <div class="flex justify-between items-center mb-5">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Mis Productos</h3>
+                <span id="badge-activos" class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-bold">0 activos</span>
+            </div>
+            
+            <!-- Contenedor del Listado Administrativo -->
+            <div id="lista-inventario-productor" class="space-y-4">
+                <!-- Inyección automática desde Render.js -->
+            </div>
+        </section>
+
+        <!-- Barra Inferior de Navegación del Panel -->
+        <div class="max-w-7xl mx-auto px-6 mt-8 flex justify-between items-center">
+            <button id="btn-ir-consumidor" class="bg-white border border-slate-200 text-slate-700 font-semibold px-4 py-2.5 rounded-xl text-sm shadow-sm hover:bg-slate-50 transition">
+                ← Volver al Catálogo
+            </button>
+            <button id="btn-abrir-modal" class="bg-[#1a3d29] text-white font-bold px-5 py-3 rounded-xl text-sm shadow-md hover:bg-emerald-950 transition flex items-center gap-2">
+                <span>➕</span> Añadir Cosecha
+            </button>
+        </div>
+    </div>
+
+
+    <!-- ==================== MODAL: CONFIGURAR PERFIL COMERCIAL ==================== -->
+    <div id="modal-perfil" class="hidden fixed inset-0 bg-black/50 flex justify-center items-center p-4 z-50">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 relative">
+            <button id="btn-cerrar-perfil" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 font-bold">✕</button>
+            <h2 class="text-lg font-black text-slate-900 mb-1">Personalizar Mi Perfil</h2>
+            <p class="text-xs text-slate-400 mb-4">Actualiza tus credenciales comerciales de forma interna y persistente en la BD local.</p>
+            
+            <form id="form-actualizar-perfil" class="space-y-4">
+                <div>
+                    <label for="edit-profile-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">Nombre Comercial</label>
+                    <input type="text" id="edit-profile-name" placeholder="Ej: María González" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                </div>
+                <div>
+                    <label for="edit-profile-location" class="block text-xs font-bold text-slate-500 uppercase mb-1">Ubicación / Municipio</label>
+                    <input type="text" id="edit-profile-location" placeholder="Ej: San Cristóbal" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                </div>
+                <div>
+                    <label for="edit-profile-avatar" class="block text-xs font-bold text-slate-500 uppercase mb-1">URL Avatar (Foto)</label>
+                    <input type="url" id="edit-profile-avatar" placeholder="https://images.unsplash.com/..." required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                </div>
+                <button type="submit" class="w-full bg-[#1a3d29] text-white font-bold py-3 rounded-xl text-sm hover:bg-emerald-950 transition mt-2">
+                    Guardar Cambios Internos
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ==================== MODAL FORMULARIO: AÑADIR COSECHA ==================== -->
+    <div id="modal-cosecha" class="hidden fixed inset-0 bg-black/50 flex justify-center items-center p-4 z-50 overflow-y-auto">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6 relative">
+            <button id="btn-cerrar-modal" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 font-bold">✕</button>
+            
+            <h2 class="text-xl font-black text-slate-900 mb-1">Añadir Cosecha Nueva</h2>
+            <p class="text-xs text-slate-400 mb-4">Ingresa los datos para registrar el alimento en la base de datos interna local.</p>
+            
+            <form id="form-publicar-producto" class="space-y-4">
+                <div>
+                    <label for="input-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">Nombre del Alimento</label>
+                    <input type="text" id="input-name" required placeholder="Ej: Tomates Orgánicos" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="input-price" class="block text-xs font-bold text-slate-500 uppercase mb-1">Precio (RD$)</label>
+                        <input type="number" step="0.01" id="input-price" required placeholder="45" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                    </div>
+                    <div>
+                        <label for="input-unit" class="block text-xs font-bold text-slate-500 uppercase mb-1">Unidad de Venta</label>
+                        <input type="text" id="input-unit" required placeholder="lb" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="input-producer" class="block text-xs font-bold text-slate-500 uppercase mb-1">Productor Responsable</label>
+                    <input type="text" id="input-producer" required placeholder="Nombre comercial del productor" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                </div>
+
+                <div>
+                    <label for="input-category" class="block text-xs font-bold text-slate-500 uppercase mb-1">Categoría del Alimento</label>
+                    <select id="input-category" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                        <option value="Vegetales">Vegetales</option>
+                        <option value="Frutas">Frutas</option>
+                        <option value="Lácteos">Lácteos</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="input-imageUrl" class="block text-xs font-bold text-slate-500 uppercase mb-1">URL de la Imagen de Portada</label>
+                    <input type="url" id="input-imageUrl" placeholder="https://images.unsplash.com/..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                </div>
+
+                <div>
+                    <label for="input-description" class="block text-xs font-bold text-slate-500 uppercase mb-1">Descripción de la Cosecha</label>
+                    <textarea id="input-description" required rows="3" placeholder="Detalla frescura, empaque, origen..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-[#1a3d29] text-white font-bold py-3 rounded-xl shadow text-sm hover:bg-emerald-950 transition mt-2">
+                    Registrar en Catálogo
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Gestión ordenada de módulos lógicos -->
+    <script src="Render.js" defer></script>
+    <script src="Captura.js" defer></script>
+</body>
+</html>
