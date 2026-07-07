@@ -37,3 +37,7 @@ El proyecto ha sido optimizado estructuralmente bajo criterios de accesibilidad 
 │   ├── index.html             # Interfaz de usuario estructurada y accesible
 │   └── Render.js              # Controlador del DOM, filtros, buscador y carrito
 └── .gitignore                 # Reglas de exclusión para Git (node_modules y base de datos)
+```
+---
+## Video Mandatorio
+https://drive.google.com/file/d/1amAFaqicp8na48x9Y5coWGQrprdKpSGh/view?usp=sharing
